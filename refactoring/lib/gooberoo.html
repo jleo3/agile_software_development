@@ -1,0 +1,70 @@
+<pre><span class="comment"># This class gneerates prime numbers up to a user-specified</span>
+<span class="comment"># maximum.  The algorithm used is the Sieve of Eratosthenes.</span>
+<span class="comment"># &lt;p&gt;</span>
+<span class="comment"># Eratosthenes of Cyrene, b. c. 276 BC, Cyrene, Libya --</span>
+<span class="comment"># d. c. 194, Alexandria.  The first man to calculate the</span>
+<span class="comment"># circumference of the Earth.  Also known for working on</span>
+<span class="comment"># calendars with leap years, he ran the library at Alexandria.</span>
+<span class="comment"># &lt;p&gt;</span>
+<span class="comment"># The algorithm is quite simple.  Given an array of integers</span>
+<span class="comment"># starting at 2.  Cross out all multiples of 2.  Find the next</span>
+<span class="comment"># uncrossed integer, and cross out all of its multiples.</span>
+<span class="comment"># Repeat until you have passed the square root of the maximum</span>
+<span class="comment"># value.</span>
+<span class="comment">#</span>
+<span class="comment"># @author Robert C. Martin</span>
+<span class="comment"># @version 9 Dec 1999 rcm</span>
+
+<span class="keyword">class </span><span class="class">GeneratePrimes</span>
+
+  <span class="keyword">def </span><span class="method">self.generate_primes</span><span class="punct">(</span><span class="ident">maxValue</span><span class="punct">)</span>
+    <span class="keyword">if</span> <span class="ident">maxValue</span> <span class="punct">&gt;=</span> <span class="number">2</span> <span class="comment"># the only valid case</span>
+      <span class="comment"># declarations</span>
+      <span class="ident">s</span> <span class="punct">=</span> <span class="ident">maxValue</span> <span class="punct">+</span> <span class="number">1</span> <span class="comment"># size of array</span>
+      <span class="ident">f</span> <span class="punct">=</span> <span class="constant">Array</span><span class="punct">.</span><span class="ident">new</span><span class="punct">(</span><span class="ident">s</span><span class="punct">)</span> <span class="punct">{</span> <span class="constant">true</span> <span class="punct">}</span> <span class="comment">#initialize array to true</span>
+
+      <span class="comment"># get rid of known non-primes</span>
+      <span class="ident">f</span><span class="punct">[</span><span class="number">0</span><span class="punct">]</span> <span class="punct">=</span> <span class="ident">f</span><span class="punct">[</span><span class="number">1</span><span class="punct">]</span> <span class="punct">=</span> <span class="constant">false</span>
+
+      <span class="comment"># sieve</span>
+      <span class="ident">i</span> <span class="punct">=</span> <span class="number">2</span>
+      <span class="keyword">while</span><span class="punct">(</span><span class="ident">i</span> <span class="punct">&lt;</span> <span class="punct">(</span><span class="constant">Math</span><span class="punct">.</span><span class="ident">sqrt</span><span class="punct">(</span><span class="ident">s</span><span class="punct">)</span> <span class="punct">+</span> <span class="number">1</span><span class="punct">))</span>
+        <span class="keyword">if</span> <span class="ident">f</span><span class="punct">[</span><span class="ident">i</span><span class="punct">]</span> <span class="comment"># if i is uncrossed, cross its multiples</span>
+          <span class="ident">j</span> <span class="punct">=</span> <span class="number">2</span> <span class="punct">*</span> <span class="ident">i</span>
+          <span class="keyword">while</span> <span class="ident">j</span> <span class="punct">&lt;</span> <span class="ident">s</span>
+            <span class="ident">f</span><span class="punct">[</span><span class="ident">j</span><span class="punct">]</span> <span class="punct">=</span> <span class="constant">false</span> <span class="comment"># multiple is not prime </span>
+            <span class="ident">j</span> <span class="punct">=</span> <span class="ident">j</span> <span class="punct">+</span> <span class="ident">i</span>
+          <span class="keyword">end</span>
+        <span class="keyword">end</span>
+        <span class="ident">i</span> <span class="punct">=</span> <span class="ident">i</span> <span class="punct">+</span> <span class="number">1</span>
+      <span class="keyword">end</span>
+
+      <span class="comment"># how many primes are there?</span>
+      <span class="ident">count</span> <span class="punct">=</span> <span class="number">0</span>
+      <span class="ident">i</span> <span class="punct">=</span> <span class="number">0</span>
+      <span class="keyword">while</span> <span class="ident">i</span> <span class="punct">&lt;</span> <span class="ident">s</span>
+        <span class="keyword">if</span> <span class="ident">f</span><span class="punct">[</span><span class="ident">i</span><span class="punct">]</span>
+          <span class="ident">count</span> <span class="punct">=</span> <span class="ident">count</span> <span class="punct">+</span> <span class="number">1</span>
+        <span class="keyword">end</span>
+        <span class="ident">i</span> <span class="punct">=</span> <span class="ident">i</span> <span class="punct">+</span> <span class="number">1</span>
+      <span class="keyword">end</span>
+      <span class="ident">primes</span> <span class="punct">=</span> <span class="constant">Array</span><span class="punct">.</span><span class="ident">new</span><span class="punct">(</span><span class="ident">count</span><span class="punct">)</span>
+      
+      <span class="comment"># move the primes into the result</span>
+      <span class="ident">i</span> <span class="punct">=</span> <span class="number">0</span>
+      <span class="ident">j</span> <span class="punct">=</span> <span class="number">0</span>
+      <span class="keyword">while</span> <span class="ident">i</span> <span class="punct">&lt;</span> <span class="ident">s</span>
+        <span class="keyword">if</span> <span class="ident">f</span><span class="punct">[</span><span class="ident">i</span><span class="punct">]</span>
+          <span class="ident">primes</span><span class="punct">[</span><span class="ident">j</span><span class="punct">]</span> <span class="punct">=</span> <span class="ident">i</span>
+          <span class="ident">j</span> <span class="punct">=</span> <span class="ident">j</span> <span class="punct">+</span> <span class="number">1</span>
+        <span class="keyword">end</span>
+      <span class="ident">i</span> <span class="punct">=</span> <span class="ident">i</span> <span class="punct">+</span> <span class="number">1</span>
+      <span class="keyword">end</span>
+      
+      <span class="keyword">return</span> <span class="ident">primes</span> <span class="comment"># return the primes</span>
+    <span class="keyword">else</span>
+      <span class="keyword">return</span> <span class="punct">[]</span>
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre>
