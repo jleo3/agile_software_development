@@ -1,5 +1,5 @@
 require 'test/unit'
-require 'lib/prime_generator_v2'
+require 'lib/prime_generator_v3'
 
 class GeneratePrimesTest < Test::Unit::TestCase
 
