@@ -17,10 +17,10 @@
 
 class GeneratePrimes
 
-  def self.generate_primes(maxValue)
-    if maxValue >= 2 # the only valid case
+  def self.generate_primes(max_value)
+    if max_value >= 2 # the only valid case
       # declarations
-      s = maxValue + 1 # size of array
+      s = max_value + 1 # size of array
       f = Array.new(s) { true } #initialize array to true
 
       # get rid of known non-primes
